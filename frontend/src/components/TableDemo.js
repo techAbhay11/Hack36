@@ -55,7 +55,7 @@ export const TableDemo = () => {
         customerService.getCustomersLarge().then(data => { setCustomers1(getCustomers(data)); setLoading1(false) });
         customerService.getCustomersLarge().then(data => { setCustomers2(getCustomers(data)); setLoading2(false); });
         customerService.getCustomersMedium().then(data => setCustomers3(data));
-        productService.getProductsWithOrdersSmall().then(data => setProducts(data));
+        // productService.getProductsWithOrdersSmall().then(data => setProducts(data));
 
         initFilters1();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps

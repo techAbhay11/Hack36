@@ -12,4 +12,18 @@ export class CropService {
         
     }
 
+    sendWeeklyCrop(cropData) {
+        console.log(cropData);
+        return axios.post('http://localhost:3001/api/weekly/addcrop', cropData).then(res => res.data);
+    }
+
+    getWeeklyCrop(cropData) {
+        return axios.post('http://localhost:3001/api/weekly/getcrop', cropData).then(res => res.data);
+    }
+
+    pricePrediction(cropData) {
+        console.log(cropData);
+        return axios.post('http://localhost:3001/pricepredict', {cropData}).then(res => res.data);
+    }
+
 }

@@ -16,7 +16,7 @@ function toTitleCase(str) {
 
 export const Crops = () => {
 
-    const [checkboxValue, setCheckboxValue] = useState([]);
+    // const [checkboxValue, setCheckboxValue] = useState([]);
     const [nitrogen, setNitrogen] = useState('');
     const [potassium, setPotassium] = useState('');
     const [phosphorus, setPhosphorus] = useState('');
@@ -74,7 +74,8 @@ export const Crops = () => {
         const cropService = new CropService();
         cropService.getCrop(cropData).then((cropRec) => {
             console.log(cropRec);
-            cropDisplayMessage.current.show({ severity: 'success', content: `${toTitleCase(cropRec)} is the best crop for your conditions.`, life: 240000 });
+            setRecommendCrop(cropRec);
+            cropDisplayMessage.current.show({ severity: 'success', summary: `${toTitleCase(cropRec)} is the best crop for your conditions.`, life: 300000 });
         });
     }
 

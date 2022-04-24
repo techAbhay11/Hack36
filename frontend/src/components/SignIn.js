@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
 import { InputText } from "primereact/inputtext";
-// import { AuthService } from '../service/AuthService';
+import { AuthService } from '../service/AuthService';
+import { setGlobalState } from '../state';
 
 
 export const SignIn = (props) => {
@@ -18,13 +19,14 @@ export const SignIn = (props) => {
 
     const signInUser = (e) => {
         e.preventDefault();
-        // const authService = new AuthService();
-        // authService.signIn({username: username, password: password}).then(userInfo => {
-        //     console.log(userInfo);
-        // });
+        const authService = new AuthService();
+        authService.signIn({username: username, password: password}).then(userInfo => {
+            console.log(userInfo);
+            setGlobalState("userData", userInfo.cred);
+            setGlobalState("isAuthenticated", true);
+        });
 
     }
-    
 
     return (
         <div className="flex align-items-center flex-column pt-6 px-3">
@@ -37,11 +39,11 @@ export const SignIn = (props) => {
                 </div>
 
                 <div>
-                    <label htmlFor="email1" className="block text-900 font-medium mb-2">Email</label>
-                    <InputText value={username} onChange={(e) => setUsername(e.target.value)} id="email1" type="text" className="w-full mb-3" />
+                    <label htmlFor="username" className="block text-900 font-medium mb-2">Username</label>
+                    <InputText value={username} onChange={(e) => setUsername(e.target.value)} id="username" type="text" className="w-full mb-3" />
 
-                    <label htmlFor="password1" className="block text-900 font-medium mb-2">Password</label>
-                    <InputText value={password} onChange={(e) => setPassword(e.target.value)} id="password1" type="password" className="w-full mb-3" />
+                    <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
+                    <InputText value={password} onChange={(e) => setPassword(e.target.value)} id="password" type="password" className="w-full mb-3" />
 
                     <div className="flex align-items-center justify-content-between mb-6">
                         <div className="flex align-items-center">

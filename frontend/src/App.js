@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames";
-import { Route } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+
+import { useGlobalState, setGlobalState } from './state';
 
 import { AppTopbar } from "./AppTopbar";
 import { AppFooter } from "./AppFooter";
@@ -12,7 +14,13 @@ import { Maps } from "./components/Maps";
 import { WeatherAPI } from "./components/WeatherAPI";
 import { SignIn } from "./components/SignIn";
 import { SignUp } from "./components/SignUp";
-import { Crops } from "./components/Crops";
+import { Profile } from "./components/Profile";
+import { Directions } from "./components/Directions";
+import { LocalRoute } from "./components/LocalRoute";
+import { TruckerList } from "./components/TruckerList";
+import { LoadDetails } from "./components/LoadDetails";
+
+
 import { Dashboard } from "./components/Dashboard";
 import { ButtonDemo } from "./components/ButtonDemo";
 import { ChartDemo } from "./components/ChartDemo";
@@ -52,6 +60,8 @@ import "./App.scss";
 
 
 const App = () => {
+
+    const [isAuthenticated, setIsAuthenticated] = useGlobalState("isAuthenticated");
     
     const [layoutMode, setLayoutMode] = useState("static");
     const [layoutColorMode, setLayoutColorMode] = useState("light");
@@ -68,6 +78,7 @@ const App = () => {
     let menuClick = false;
     let mobileTopbarMenuClick = false;
 
+
     useEffect(() => {
         if (mobileMenuActive) {
             addClass(document.body, "body-overflow-hidden");
@@ -75,6 +86,10 @@ const App = () => {
             removeClass(document.body, "body-overflow-hidden");
         }
     }, [mobileMenuActive]);
+
+    useEffect(() => {
+        // setGlobalState("isAuthenticated", false);
+    });
 
     const onInputStyleChange = (inputStyle) => {
         setInputStyle(inputStyle);
@@ -157,14 +172,50 @@ const App = () => {
 
     const menu = [
         {
+            label: "Home",
+            items: [
+                {
+                    label: "Dashboard",
+                    icon: "pi pi-fw pi-home",
+                    to: "/",
+                },
+            ],
+        },
+        {
             label: "Farmer Portal",
             icon: "pi pi-fw pi-sitemap",
             items: [
-                { label: "Maps", icon: "pi pi-fw pi-id-card", to: "/maps" },
-                { label: "Weather Data", icon: "pi pi-fw pi-id-card", to: "/weatherapi" },
-                { label: "Crops", icon: "pi pi-fw pi-id-card", to: "/crops" },
+                { label: "Soil Testing", icon: "pi pi-fw pi-id-card", to: "/maps" },
+                { label: "Profile", icon: "pi pi-fw pi-id-card", to: "/profile" },
                 { label: "SignIn", icon: "pi pi-fw pi-id-card", to: "/signin" },
                 { label: "SignUp", icon: "pi pi-fw pi-id-card", to: "/signup" },
+                { label: "Directions", icon: "pi pi-fw pi-id-card", to: "/directions" },
+                { label: "Local Route", icon: "pi pi-fw pi-id-card", to: "/localroute" },
+                { label: "Trucker List", icon: "pi pi-fw pi-id-card", to: "/truckerlist" },
+                { label: "Load Details", icon: "pi pi-fw pi-id-card", to: "/loaddetails" },
+                
+                { label: "formlayout", icon: "pi pi-fw pi-id-card", to: "/formlayout" },
+                { label: "input", icon: "pi pi-fw pi-id-card", to: "/input" },
+                { label: "floatlabel", icon: "pi pi-fw pi-id-card", to: "/floatlabel" },
+                { label: "invalidstate", icon: "pi pi-fw pi-id-card", to: "/invalidstate" },
+                { label: "button", icon: "pi pi-fw pi-id-card", to: "/button" },
+                { label: "table", icon: "pi pi-fw pi-id-card", to: "/table" },
+                { label: "list", icon: "pi pi-fw pi-id-card", to: "/list" },
+                { label: "tree", icon: "pi pi-fw pi-id-card", to: "/tree" },
+                { label: "panel", icon: "pi pi-fw pi-id-card", to: "/panel" },
+                { label: "overlay", icon: "pi pi-fw pi-id-card", to: "/overlay" },
+                { label: "media", icon: "pi pi-fw pi-id-card", to: "/media" },
+                { label: "menu", icon: "pi pi-fw pi-id-card", to: "/menu" },
+                { label: "messages", icon: "pi pi-fw pi-id-card", to: "/messages" },
+                { label: "blocks", icon: "pi pi-fw pi-id-card", to: "/blocks" },
+                { label: "icons", icon: "pi pi-fw pi-id-card", to: "/icons" },
+                { label: "file", icon: "pi pi-fw pi-id-card", to: "/file" },
+                { label: "chart", icon: "pi pi-fw pi-id-card", to: "/chart" },
+                { label: "misc", icon: "pi pi-fw pi-id-card", to: "/misc" },
+                { label: "timeline", icon: "pi pi-fw pi-id-card", to: "/timeline" },
+                { label: "crud", icon: "pi pi-fw pi-id-card", to: "/crud" },
+                { label: "empty", icon: "pi pi-fw pi-id-card", to: "/empty" },
+                { label: "documentation", icon: "pi pi-fw pi-id-card", to: "/documentation" },
             ],
         },
     ];
@@ -203,7 +254,7 @@ const App = () => {
             <div className="layout-main-container">
                 
                     <div className="layout-main">
-                        <Route path="/" exact component={Dashboard} />
+                    <Switch>
                         <Route path="/formlayout" component={FormLayoutDemo} />
                         <Route path="/input" component={InputDemo} />
                         <Route path="/floatlabel" component={FloatLabelDemo} />
@@ -226,11 +277,53 @@ const App = () => {
                         <Route path="/crud" component={Crud} />
                         <Route path="/empty" component={EmptyPage} />
                         <Route path="/documentation" component={Documentation} />
-                        <Route path="/maps" component={Maps} />
-                        <Route path="/weatherapi" component={WeatherAPI} />
-                        <Route path="/signin" component={SignIn} />
-                        <Route path="/signup" component={SignUp} />
-                        <Route path="/crops" component={Crops} />
+
+                        <Route
+                            path='/'
+                            exact
+                            render={(props) => isAuthenticated ? <WeatherAPI {...props} /> : <Redirect to="/signin" />}
+                        />
+                        <Route
+                            path='/profile'
+                            exact
+                            render={(props) => isAuthenticated ? <Profile {...props} /> : <Redirect to="/signin" />}
+                        />
+                        <Route
+                            path='/maps'
+                            exact
+                            render={(props) => isAuthenticated ? <Maps {...props} /> : <Redirect to="/signin" />}
+                        />
+                        <Route
+                            path='/signin'
+                            exact
+                            render={(props) => !isAuthenticated ? <SignIn {...props} /> : <Redirect to="/" />}
+                        />
+                        <Route
+                            path='/signup'
+                            exact
+                            render={(props) => !isAuthenticated ? <SignUp {...props} /> : <Redirect to="/" />}
+                        />
+                        <Route
+                            path='/directions'
+                            exact
+                            render={(props) => isAuthenticated ? <Directions {...props} /> : <Redirect to="/signin" />}
+                        />
+                        <Route
+                            path='/localroute'
+                            exact
+                            render={(props) => isAuthenticated ? <LocalRoute {...props} /> : <Redirect to="/signin" />}
+                        />
+                        <Route
+                            path='/truckerlist'
+                            exact
+                            render={(props) => isAuthenticated ? <TruckerList {...props} /> : <Redirect to="/signin" />}
+                        />
+                        <Route
+                            path='/loaddetails'
+                            exact
+                            render={(props) => isAuthenticated ? <LoadDetails {...props} /> : <Redirect to="/signin" />}
+                        />
+                    </Switch>
                     </div>
                 
 

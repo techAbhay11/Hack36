@@ -10,7 +10,7 @@
 }
 
 .customer-badge {
-    &.status-qualified {
+    &.status-light-open-body {
         background: #C8E6C9;
         color: #256029;
     }
@@ -20,17 +20,17 @@
         color: #C63737;
     }
 
-    &.status-negotiation {
+    &.status-heavy-open-body {
         background: #FEEDAF;
         color: #8A5340;
     }
 
-    &.status-new {
+    &.status-container-body {
         background: #B3E5FC;
         color: #23547B;
     }
 
-    &.status-renewal {
+    &.status-mini-truck {
         background: #ECCFFF;
         color: #694382;
     }

@@ -11,7 +11,7 @@ export const Maps = (props) => {
     const map = useRef(null);
     const [lng, setLng] = useState(72.87);
     const [lat, setLat] = useState(19.07);
-    const [zoom, setZoom] = useState(9);
+    const [zoom, setZoom] = useState(4);
     const [inpLng, setInpLng] = useState('');
     const [inpLat, setInpLat] = useState('');
 

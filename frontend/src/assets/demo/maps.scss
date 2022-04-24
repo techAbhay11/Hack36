@@ -1,3 +1,48 @@
 .map-container {
     height: 600px;
 }
+
+.p-messages-summary {
+    font-size: 2rem;
+}
+
+.truck {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: #3887be;
+    pointer-events: none;
+  }
+
+  .card {
+    font-size: small;
+    border-bottom: solid #d3d3d3 2px;
+    margin-bottom: 6px;
+  }
+  
+  .card-header {
+    font-weight: bold;
+    padding: 6px;
+  }
+  
+  .no-route {
+    background-color: #d3d3d3;
+    color: #f00;
+  }
+  
+  .obstacle-found {
+    background-color: #d3d3d3;
+    color: #fff;
+  }
+  
+  .route-found {
+    background-color: #33a532;
+    color: #fff;
+  }
+  
+  .card-details {
+    padding: 3px 6px;
+  }
+  
+  
