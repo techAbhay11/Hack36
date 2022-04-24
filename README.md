@@ -18,11 +18,11 @@
 ## Table of Contents:
 
 ## Technology Stack:
-  1) Flutter
-  2) Google Collab
-  3) JavaFX
-  4) Machine Learning
-  
+  1) React JS
+  2) Node JS
+  3) Express JS
+  4) MongoDB
+  5) MapBox API
 
 ## Contributors:
 
