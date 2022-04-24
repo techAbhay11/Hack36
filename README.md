@@ -1,4 +1,4 @@
-<h1 align="center">Hack36 Template Readme</h1>
+<h1 align="center">Hack36</h1>
 <p align="center">
 </p>
 
@@ -9,10 +9,10 @@
   Intro of the project
   
 ## Demo Video Link:
-  <a href="https://youtu.be/dQw4w9WgXcQ">https://youtu.be/mcFIWszcXZ0</a>
+  <a href="https://youtu.be/mcFIWszcXZ0">Youtube Video Link</a>
   
 ## Presentation Link:
-  <a href="https://cutt.ly/H365PPT"> PPT link here </a>
+  <a href="https://www.canva.com/design/DAE-wrbEBik/oNT4YTXuLAmV8r3P9GZhWw/edit?utm_content=DAE-wrbEBik&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"> PPT link here </a>
   
   
 ## Table of Contents:
